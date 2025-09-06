@@ -8,7 +8,7 @@ from sqlalchemy.sql import func
 from db.database import Base
 
 class StoryJob(Base):
-    __table__name = "story_jobs"
+    __tablename__ = "story_jobs"  # <-- Add this line!
     id = Column(Integer, primary_key = True, index = True)
     job_id = Column(String,index = True,unique=True)
     session_id = Column(String,index = True)
