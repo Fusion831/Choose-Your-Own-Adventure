@@ -15,7 +15,8 @@ from sqlalchemy import Column, Integer, String, DateTime, Boolean,ForeignKey, JS
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from db.database import Base
-
+from pydantic import BaseModel
+from typing import List, Optional
 
 class Story(Base):
     __tablename__ = "stories"
@@ -37,3 +38,11 @@ class StoryNode(Base):
     options = Column(JSON, default=lambda: [], server_default='[]')
 
     story = relationship("Story",back_populates="nodes")
+
+class StoryNodeLLM(BaseModel):
+    content: str
+    choices: List[str]
+
+class StoryLLMResponse(BaseModel):
+    story_nodes: List[StoryNodeLLM]
+    error: Optional[str] = None
